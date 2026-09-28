@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 enum EstadoCriatura { OVO, BEBE, ADULTO, DORMINDO, MORTO };
 
 struct StatusCriatura {

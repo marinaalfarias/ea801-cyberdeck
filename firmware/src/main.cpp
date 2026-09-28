@@ -7,8 +7,8 @@
 #include "drivers/ldr.h"
 #include "drivers/buzzer.h"
 #include "services/game_engine.h"
-#include "services/wifi_manager.h"
-#include "services/power_manager.h"
+/*#include "services/wifi_manager.h"
+#include "services/power_manager.h"*/
 
 // Protótipos das tasks (definidas em src/tasks/*.cpp)
 void taskUI(void *pv);
@@ -26,8 +26,8 @@ void setup() {
     ldr_init();
     buzzer_init();
     game_engine_init();
-    wifi_manager_init();
-    power_manager_init();
+    /*wifi_manager_init();
+    power_manager_init();*/
 
     xTaskCreatePinnedToCore(taskUI,      "UI",      4096, nullptr, 2, nullptr, 1);
     xTaskCreatePinnedToCore(taskInput,   "Input",   2048, nullptr, 2, nullptr, 1);
