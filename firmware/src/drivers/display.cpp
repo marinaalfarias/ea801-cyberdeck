@@ -1,17 +1,33 @@
 #include "display.h"
 #include "pins.h"
-#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_ST7735.h>
+#include <SPI.h>
 
-static Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, -1);
+// Criar objeto TFT
+Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 
 void display_init() {
-    Wire.begin(PIN_I2C_SDA, PIN_I2C_SCL);
-    display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR);
-    display.clearDisplay();
-    display.setTextColor(SSD1306_WHITE);
-    display.display();
+    // Se o pino BL existir, ligar o backlight
+    #ifdef TFT_BL
+    pinMode(TFT_BL, OUTPUT);
+    digitalWrite(TFT_BL, HIGH);
+    #endif
+
+    // Inicializar (o modelo pode precisar ser ajustado)
+    tft.initR(INITR_BLACKTAB);  // Se as cores estiverem erradas, tente INITR_GREENTAB ou INITR_REDTAB
+    
+    tft.setRotation(1);  // Ajustar orientação (0-3)
+    tft.fillScreen(ST77XX_BLACK);
+    tft.setTextColor(ST77XX_WHITE);
+    tft.setTextSize(1);
+    tft.setCursor(0, 0);
 }
 
-Adafruit_SSD1306& display_get() { return display; }
-void display_clear() { display.clearDisplay(); }
-void display_flush() { display.display(); }
+Adafruit_ST7735& display_get() {
+    return tft;
+}
+
+void display_clear() {
+    tft.fillScreen(ST77XX_BLACK);
+}
