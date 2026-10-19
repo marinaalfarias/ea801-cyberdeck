@@ -5,7 +5,7 @@
 void taskJogo(void *pv) {
     TickType_t last = xTaskGetTickCount();
     for (;;) {
-        game_engine_tick();
+        game_engine_tick(); // Faz a lógica rodar
         vTaskDelayUntil(&last, pdMS_TO_TICKS(TICK_JOGO_MS));
     }
 }
