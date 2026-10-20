@@ -1,17 +1,25 @@
 #include "display.h"
 #include "pins.h"
-#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <SPI.h>
 
-static Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, -1);
+static Adafruit_ST7735 tft(TFT_CS, TFT_DC, TFT_RST);
 
 void display_init() {
-    Wire.begin(PIN_I2C_SDA, PIN_I2C_SCL);
-    display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR);
-    display.clearDisplay();
-    display.setTextColor(SSD1306_WHITE);
-    display.display();
+    delay(150);
+    pinMode(TFT_BL, OUTPUT);
+    digitalWrite(TFT_BL, HIGH);
+
+    tft.initR(INITR_BLACKTAB);
+    tft.setRotation(1);
+    tft.fillScreen(ST77XX_GREEN);
+    tft.setTextColor(ST77XX_MAGENTA);
 }
 
-Adafruit_SSD1306& display_get() { return display; }
-void display_clear() { display.clearDisplay(); }
-void display_flush() { display.display(); }
+Adafruit_ST7735& display_get() { return tft; }
+
+void display_clear() {
+    tft.fillScreen(ST77XX_BLACK);
+}
+
+void display_flush() {}

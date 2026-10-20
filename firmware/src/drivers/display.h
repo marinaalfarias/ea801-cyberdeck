@@ -1,7 +1,8 @@
 #pragma once
-#include <Adafruit_SSD1306.h>
+
+#include <Adafruit_ST7735.h>
 
 void display_init();
-Adafruit_SSD1306& display_get();
+Adafruit_ST7735& display_get();
 void display_clear();
 void display_flush();

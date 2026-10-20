@@ -7,7 +7,7 @@ struct StatusCriatura {
     int fome;         // 0..100
     int felicidade;   // 0..100
     int energia;      // 0..100
-    uint32_t idade_s; // segundos
+    // uint32_t idade_s; // segundos
 };
 
 void game_engine_init();
