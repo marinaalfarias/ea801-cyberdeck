@@ -16,16 +16,45 @@ void game_engine_tick() {
     st.idade_s++;
 
     if (st.estado != MORTO) {
-        st.fome = max(0, st.fome - FOME_DECAY_POR_TICK);
-        st.energia = max(0, st.energia - ENERGIA_DECAY_POR_TICK);
+        if (st.estado == DORMINDO) {
+            // Dormindo: energia recarrega, fome cai pela metade
+            st.energia = min(ENERGIA_MAX, st.energia + ENERGIA_RECARGA_POR_TICK);
+            st.fome = max(0, st.fome - (FOME_DECAY_POR_TICK / 2));
+        } else {
+            // Acordado: energia e fome decaem normalmente
+            st.energia = max(0, st.energia - ENERGIA_DECAY_POR_TICK);
+            st.fome = max(0, st.fome - FOME_DECAY_POR_TICK);
+        }
     }
-    if (st.fome == 0 || st.energia == 0) st.estado = MORTO;
-    else if (st.estado == OVO && st.idade_s > 5) st.estado = CHOCANDO;
-    else if (st.estado == CHOCANDO && st.idade_s > 10) st.estado = NORMAL;
-    else if (st.estado == NORMAL && st.fome < 30) st.estado = TRISTE;
-    else if (st.estado == TRISTE && st.fome > 70) st.estado = FELIZ;
-    else if (st.estado == FELIZ && st.fome < 15) st.estado = BRAVO;
-    else if (st.estado == BRAVO && st.fome < 60) st.estado = NORMAL;
+    
+    if (st.fome == 0 || st.energia == 0) {
+        st.estado = MORTO;
+        return; // não faz mais nada
+    }
+
+    if (st.estado == OVO && st.idade_s > 3) {
+        st.estado = CHOCANDO;
+    }
+    else if (st.estado == CHOCANDO && st.idade_s > 10) {
+        st.estado = NORMAL;
+    }
+
+    bool estado_de_vida = (st.estado == NORMAL || st.estado == TRISTE || st.estado == FELIZ || st.estado == BRAVO);
+    
+    if (estado_de_vida) {
+        if (st.fome < 15) {
+            st.estado = BRAVO;
+        }
+        else if (st.fome < 30) {
+            st.estado = TRISTE;
+        }
+        else if (st.fome > 70) {
+            st.estado = FELIZ;
+        }
+        else {
+            st.estado = NORMAL;
+        }
+    }
 }
 
 StatusCriatura& game_engine_status() { return st; }
@@ -57,7 +86,7 @@ void game_engine_set_luz(bool escuro) {
     } 
     else if (!escuro && st.estado == DORMINDO) {
         // Acorda e volta a ser bebê ou adulto (dependendo da idade)
-        if (st.idade_s > 300) st.estado = NORMAL;
+        if (st.idade_s > 15) st.estado = NORMAL;
         else st.estado = OVO;
     }
 }

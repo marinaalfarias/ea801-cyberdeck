@@ -20,6 +20,8 @@ void taskUI(void *pv) {
         
         if (estado_mudou) {
             // Estado mudou: redesenha a imagem E o texto
+            Serial.print("[UI] Estado mudou para: ");
+            Serial.println(st.estado);
             screen_game_draw_image(st.estado);
             screen_status_draw();
             

@@ -12,5 +12,5 @@ int ldr_get_value() {
 
 bool ldr_is_dark() {
     // Ajuste o valor 2000 conforme o seu circuito (resistor de 1k ou 10k)
-    return analogRead(PIN_LDR) > 2000; 
+    return analogRead(PIN_LDR) < 500; 
 }
