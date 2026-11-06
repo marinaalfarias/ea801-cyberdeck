@@ -20,10 +20,12 @@ void game_engine_tick() {
         st.energia = max(0, st.energia - ENERGIA_DECAY_POR_TICK);
     }
     if (st.fome == 0 || st.energia == 0) st.estado = MORTO;
-    else if (st.estado == OVO && st.idade_s > 30) st.estado = BEBE;
-    else if (st.estado == BEBE && st.idade_s > 60) st.estado = ADULTO;
-    else if (st.estado == ADULTO && st.idade_s > 100) st.estado = DORMINDO;
-    else if (st.estado == DORMINDO && st.idade_s > 130) st.estado = ADULTO;
+    else if (st.estado == OVO && st.idade_s > 5) st.estado = CHOCANDO;
+    else if (st.estado == CHOCANDO && st.idade_s > 10) st.estado = NORMAL;
+    else if (st.estado == NORMAL && st.fome < 30) st.estado = TRISTE;
+    else if (st.estado == TRISTE && st.fome > 70) st.estado = FELIZ;
+    else if (st.estado == FELIZ && st.fome < 15) st.estado = BRAVO;
+    else if (st.estado == BRAVO && st.fome < 60) st.estado = NORMAL;
 }
 
 StatusCriatura& game_engine_status() { return st; }
@@ -36,4 +38,11 @@ void game_engine_brincar() {
 }
 void game_engine_sacudir(){
     st.felicidade = max(0, st.felicidade - 10); 
+}
+volatile bool tela_precisa_atualizar = false;
+void game_engine_recarregar() {
+    if (st.estado != MORTO) {
+        st.energia = min(ENERGIA_MAX, st.energia + 20);
+        tela_precisa_atualizar = true;
+    }
 }

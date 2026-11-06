@@ -2,7 +2,9 @@
 
 #include <cstdint>
 
-enum EstadoCriatura { OVO, BEBE, ADULTO, DORMINDO, MORTO };
+enum EstadoCriatura { OVO, CHOCANDO, NORMAL, TRISTE, DORMINDO, FELIZ, BRAVO, MORTO };
+
+extern volatile bool tela_precisa_atualizar;
 
 struct StatusCriatura {
     EstadoCriatura estado;
@@ -18,3 +20,4 @@ StatusCriatura& game_engine_status();
 void game_engine_alimentar();
 void game_engine_brincar();
 void game_engine_sacudir();
+void game_engine_recarregar();

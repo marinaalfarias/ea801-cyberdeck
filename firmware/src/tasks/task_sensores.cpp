@@ -4,10 +4,14 @@
 
 void taskSensores(void *pv) {
     for (;;) {
-        // Se estiver escuro, o bichinho dorme
+        int valor_luz = ldr_get_value();
+        Serial.print("Luz lida: ");
+        Serial.println(valor_luz); // Veja os valores aqui!
+
         if (ldr_is_dark()) {
             game_engine_status().estado = DORMINDO; 
+            Serial.println("Dormindo...");
         }
-        vTaskDelay(pdMS_TO_TICKS(500)); // Lê o LDR a cada meio segundo
+        vTaskDelay(pdMS_TO_TICKS(1000)); 
     }
 }

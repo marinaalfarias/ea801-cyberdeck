@@ -1,34 +1,34 @@
 #include <Arduino.h>
 #include "config.h"
 #include "services/game_engine.h"
-#include "drivers/display.h" // Se o display não estiver pronto, comente essa linha
 #include "ui/screen_game.h"
 
 void taskUI(void *pv) {
     TickType_t last = xTaskGetTickCount();
-    
+    EstadoCriatura estado_anterior = MORTO;
+    int energia_anterior = -1;
+    int fome_anterior = -1;
+    int felicidade_anterior = -1;
+
     for (;;) {
         StatusCriatura st = game_engine_status();
         
-        // --- DEBUG NO MONITOR SERIAL ---
-        Serial.print("Estado: ");
-        switch(st.estado) {
-            case OVO: Serial.print("OVO"); break;
-            case BEBE: Serial.print("BEBE"); break;
-            case ADULTO: Serial.print("ADULTO"); break;
-            case MORTO: Serial.print("MORTO"); break;
-            default: Serial.print("DESCONHECIDO"); break;
+        // Declara as variáveis ANTES de usar
+        bool estado_mudou = (st.estado != estado_anterior);
+        bool energia_caiu = (abs(st.energia - energia_anterior) >= 10);
+        bool fome_caiu = (abs(st.fome - fome_anterior) >= 10);
+        bool felicidade_caiu = (abs(st.felicidade - felicidade_anterior) >= 10);
+        
+        // Usa as variáveis na condição
+        if (estado_mudou || energia_caiu || fome_caiu || felicidade_caiu) {
+            screen_game_draw(st.estado);
+            estado_anterior = st.estado;
+            energia_anterior = st.energia;
+            fome_anterior = st.fome;
+            felicidade_anterior = st.felicidade;
+            tela_precisa_atualizar = false;
         }
-        Serial.print(" | Fome: "); Serial.print(st.fome);
-        Serial.print(" | Felicidade: "); Serial.print(st.felicidade);
-        Serial.print(" | Energia: "); Serial.print(st.energia);
-        Serial.print(" | Idade: "); Serial.print(st.idade_s);
-        Serial.println("s");
-        // --------------------------------
-
-        // Futuramente aqui entrará o desenho no TFT:
-        screen_game_draw(game_engine_status().estado);
-
+        
         vTaskDelayUntil(&last, pdMS_TO_TICKS(TICK_UI_MS));
     }
 }
