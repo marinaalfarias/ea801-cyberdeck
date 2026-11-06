@@ -1,10 +1,13 @@
 #include <Arduino.h>
-#include "config.h"
+#include "drivers/ldr.h"
+#include "services/game_engine.h"
 
 void taskSensores(void *pv) {
-    TickType_t last = xTaskGetTickCount();
     for (;;) {
-        // Aqui vai a leitura do MPU6050 e do LDR
-        vTaskDelayUntil(&last, pdMS_TO_TICKS(TICK_SENSORES_MS));
+        // Se estiver escuro, o bichinho dorme
+        if (ldr_is_dark()) {
+            game_engine_status().estado = DORMINDO; 
+        }
+        vTaskDelay(pdMS_TO_TICKS(500)); // Lê o LDR a cada meio segundo
     }
 }

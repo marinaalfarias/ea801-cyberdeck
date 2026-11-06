@@ -2,7 +2,7 @@
 
 // ---------- Tempos do jogo (ms) ----------
 #define TICK_JOGO_MS         1000
-#define TICK_UI_MS           100
+#define TICK_UI_MS           10000
 #define TICK_SENSORES_MS     50
 
 // ---------- Regras do Tamagotchi ----------

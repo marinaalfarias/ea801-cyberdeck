@@ -1,30 +1,16 @@
 #pragma once
 
-// Display TFT ST7735S (SPI)
-#define TFT_CS    15   // Chip Select
-#define TFT_DC     2   // Data/Command
-#define TFT_RST    -1  // Se conectar ao EN do ESP32 pode definir como -1, senão especifique um GPIO
-#define TFT_BL     4   // Backlight (se o módulo tiver esse pino)
+// Display TFT
+#define TFT_CS     15
+#define TFT_DC     2
+#define TFT_RST    5 
+#define TFT_MOSI   23
+#define TFT_SCLK   18
+#define TFT_BL     -1  
 
-// SPI padrão do ESP32 (não precisa redefinir, a biblioteca usa por padrão)
-// MOSI = 23, SCLK = 18, MISO = 19
+// Botão
+#define PIN_BTN_UP 12
 
-// ---------- Botões ----------
-#define PIN_BTN_UP       12
-#define PIN_BTN_DOWN     13
-#define PIN_BTN_SELECT   14
-
-// ---------- Analógicos ----------
-#define PIN_LDR          34
-#define PIN_BATTERY      35
-
-// ---------- Buzzer ----------
-#define PIN_BUZZER       25
-
-// ---------- Endereços I2C ----------
-#define OLED_ADDR        0x3C
-#define MPU6050_ADDR     0x68
-
-// ---------- Dimensões do display ----------
-#define OLED_WIDTH       128
-#define OLED_HEIGHT      64
+// LDR e Buzzer (conforme a última conversa)
+#define PIN_LDR   4
+#define PIN_BUZZER 16 

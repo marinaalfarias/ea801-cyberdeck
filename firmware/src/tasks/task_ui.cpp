@@ -2,6 +2,7 @@
 #include "config.h"
 #include "services/game_engine.h"
 #include "drivers/display.h" // Se o display não estiver pronto, comente essa linha
+#include "ui/screen_game.h"
 
 void taskUI(void *pv) {
     TickType_t last = xTaskGetTickCount();
@@ -26,7 +27,7 @@ void taskUI(void *pv) {
         // --------------------------------
 
         // Futuramente aqui entrará o desenho no TFT:
-        // screen_game_draw();
+        screen_game_draw(game_engine_status().estado);
 
         vTaskDelayUntil(&last, pdMS_TO_TICKS(TICK_UI_MS));
     }
