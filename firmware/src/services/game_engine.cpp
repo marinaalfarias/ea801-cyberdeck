@@ -14,6 +14,7 @@ void game_engine_init() {
 
 void game_engine_tick() {
     st.idade_s++;
+    if (st.estado == MENU || st.estado == MORTO) return;
 
     if (st.estado != MORTO) {
         if (st.estado == DORMINDO) {
@@ -26,7 +27,7 @@ void game_engine_tick() {
             st.fome = max(0, st.fome - FOME_DECAY_POR_TICK);
         }
     }
-    
+
     if (st.fome == 0 || st.energia == 0) {
         st.estado = MORTO;
         return; // não faz mais nada
@@ -90,3 +91,11 @@ void game_engine_set_luz(bool escuro) {
         else st.estado = OVO;
     }
 }
+
+// void game_engine_iniciar_jogo(){
+//     st.estado = OVO;
+//     st.fome = FOME_MAX;
+//     st.felicidade = FELICIDADE_MAX;
+//     st.energia = ENERGIA_MAX;
+//     st.idade_s = 0;
+// }

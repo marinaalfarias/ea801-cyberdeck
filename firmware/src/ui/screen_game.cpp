@@ -5,6 +5,8 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_ST7735.h>
 
+//static int opcao_menu = 0;
+
 void draw_upper_frame(EstadoCriatura estado) {
     Adafruit_ST7735& tft = display_get();
     
@@ -89,3 +91,41 @@ void screen_status_draw() {
     tft.setCursor(5, 105);
     tft.print("Energia: "); tft.print(st.energia); tft.print("/100");
 }
+
+// void screen_menu_draw(){
+//     Adafruit_ST7735& tft = display_get();
+//     tft.fillScreen(0x958F); // fundo verde-sálvia
+    
+//     tft.setTextColor(ST77XX_BLACK);
+//     tft.setTextSize(2);
+//     tft.setCursor(20, 15);
+//     tft.print("CyberDeck");
+//     tft.setCursor(20, 35);
+//     tft.print("Tama");
+    
+//     tft.setTextSize(1);
+//     tft.setCursor(10, 70);
+//     tft.print("> Iniciar");
+//     tft.setCursor(10, 85);
+//     tft.print("  Status");
+//     tft.setCursor(10, 100);
+//     tft.print("  Sobre");
+// }
+
+// void screen_menu_set_opcao(int opcao) {
+//     opcao_menu = opcao;
+//     Adafruit_ST7735& tft = display_get();
+    
+//     // Limpa só a área das opções
+//     tft.fillRect(0, 60, 128, 60, 0x958F);
+    
+//     tft.setTextColor(ST77XX_BLACK);
+//     tft.setTextSize(1);
+    
+//     const char* opcoes[] = {"Iniciar", "Status", "Sobre"};
+//     for (int i = 0; i < 3; i++) {
+//         tft.setCursor(10, 70 + i * 15);
+//         tft.print(i == opcao ? "> " : "  ");
+//         tft.print(opcoes[i]);
+//     }
+// }

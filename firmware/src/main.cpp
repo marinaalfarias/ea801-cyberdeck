@@ -24,7 +24,7 @@ void taskNet(void *pv);
 void setup() {
     Serial.begin(115200);
     delay(500);
-    Serial.println("\n--- Iniciando CyberDeck-Tama ---");
+    Serial.println("\n--- Iniciando Tamagochi ---");
 
     // Inicialização de todos os periféricos
     display_init();

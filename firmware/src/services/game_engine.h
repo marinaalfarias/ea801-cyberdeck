@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-enum EstadoCriatura { OVO, CHOCANDO, NORMAL, TRISTE, DORMINDO, FELIZ, BRAVO, MORTO };
+enum EstadoCriatura {MENU, OVO, CHOCANDO, NORMAL, TRISTE, DORMINDO, FELIZ, BRAVO, MORTO };
 
 extern volatile bool tela_precisa_atualizar;
 
@@ -22,3 +22,4 @@ void game_engine_brincar();
 void game_engine_sacudir();
 void game_engine_recarregar();
 void game_engine_set_luz(bool escuro);
+void game_engine_iniciar_jogo();
