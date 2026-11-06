@@ -46,3 +46,18 @@ void game_engine_recarregar() {
         tela_precisa_atualizar = true;
     }
 }
+
+void game_engine_set_luz(bool escuro) {
+    if (st.estado == MORTO) return; // morto não dorme
+
+    if (escuro && st.estado != DORMINDO) {
+        // Guarda o estado anterior para restaurar quando acordar
+        // (opcional: você pode guardar em uma variável estática)
+        st.estado = DORMINDO;
+    } 
+    else if (!escuro && st.estado == DORMINDO) {
+        // Acorda e volta a ser bebê ou adulto (dependendo da idade)
+        if (st.idade_s > 300) st.estado = NORMAL;
+        else st.estado = OVO;
+    }
+}

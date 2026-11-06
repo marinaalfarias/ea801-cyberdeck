@@ -65,3 +65,27 @@ void screen_game_draw(EstadoCriatura estado) {
     tft.print(st.energia);
     tft.print("/100");
 }
+
+// Desenha APENAS a imagem de cima (lento, mas só quando o estado muda)
+void screen_game_draw_image(EstadoCriatura estado) {
+    Adafruit_ST7735& tft = display_get();
+    tft.fillScreen(0x958F);      // Limpa tudo
+    draw_upper_frame(estado);    // Desenha a imagem
+}
+
+// Desenha APENAS os textos de baixo (rápido, quando os valores mudam)
+void screen_status_draw() {
+    Adafruit_ST7735& tft = display_get();
+    StatusCriatura st = game_engine_status();
+    
+    tft.fillRect(0, 80, 128, 80, 0x958F); // Limpa só a área do texto
+    
+    tft.setTextColor(ST77XX_BLACK);
+    tft.setTextSize(1);
+    
+    tft.setCursor(5, 90);
+    tft.print("Fome: "); tft.print(st.fome); tft.print("/100");
+    
+    tft.setCursor(5, 105);
+    tft.print("Energia: "); tft.print(st.energia); tft.print("/100");
+}

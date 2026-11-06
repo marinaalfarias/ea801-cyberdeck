@@ -11,7 +11,7 @@ void display_init() {
     Serial.println("[Display] Iniciando...");
 
     SPI.begin(TFT_SCLK, -1, TFT_MOSI, TFT_CS); // SCLK, MISO, MOSI, SS
-    SPI.setFrequency(40000000); // 40 MHz
+    SPI.setFrequency(50000000); // 40 MHz
     
     #ifdef TFT_BL
     pinMode(TFT_BL, OUTPUT);

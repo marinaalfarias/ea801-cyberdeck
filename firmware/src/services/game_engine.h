@@ -21,3 +21,4 @@ void game_engine_alimentar();
 void game_engine_brincar();
 void game_engine_sacudir();
 void game_engine_recarregar();
+void game_engine_set_luz(bool escuro);
