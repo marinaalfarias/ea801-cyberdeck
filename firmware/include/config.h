@@ -2,15 +2,16 @@
 
 // ---------- Tempos do jogo (ms) ----------
 #define TICK_JOGO_MS         1000
-#define TICK_UI_MS           100
+#define TICK_UI_MS 50
 #define TICK_SENSORES_MS     50
 
 // ---------- Regras do Tamagotchi ----------
 #define FOME_MAX             100
 #define FELICIDADE_MAX       100
 #define ENERGIA_MAX          100
-#define FOME_DECAY_POR_TICK  1
-#define ENERGIA_DECAY_POR_TICK 1
+#define FOME_DECAY_POR_TICK  2
+#define ENERGIA_DECAY_POR_TICK 2
+#define ENERGIA_RECARGA_POR_TICK 3
 
 // ---------- Wi-Fi ----------
 #define WIFI_SSID            "SEU_SSID"
